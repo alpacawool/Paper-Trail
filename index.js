@@ -29,29 +29,36 @@ client.connect();
 
 
 //Test Connection
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+client.query('DROP TABLE IF EXISTS "Users"', (err, res) => {
+  if (err) {
+    console.log(err.stack);
+  } else {
+    console.log(res.rows[0]);
   }
-  client.end();
 });
 
-
-client.query("CREATE TABLE IF NOT EXISTS `User` (`username` VARCHAR NOT NULL,`password` VARCHAR NOT NULL,`holdings` VARCHAR,`balance` BIGINT NOT NULL DEFAULT '10000'");', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+client.query('CREATE TABLE IF NOT EXISTS "Users" ("userid" INTEGER, "balance" INTEGER)', (err, res) => {
+  if (err) {
+    console.log(err.stack);
+  } else {
+    console.log(res.rows[0]);
   }
-  client.end();
-
 });
-client.query('"CREATE TABLE IF NOT EXISTS `User` (`username` VARCHAR NOT NULL,`password` VARCHAR NOT NULL,`holdings` VARCHAR,`balance` BIGINT NOT NULL DEFAULT '10000'";', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+
+client.query('INSERT INTO "Users"(userid, balance) VALUES (0001, 10000)', (err, res) => {
+  if (err) {
+    console.log(err.stack);
+  } else {
+    console.log(res.rows[0]);
   }
-  client.end();
+});
+
+client.query('SELECT * FROM "Users"', (err, res) => {
+  if (err) {
+    console.log(err.stack);
+  } else {
+    console.log(res.rows[0]);
+  }
 });
 
 
