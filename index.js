@@ -53,11 +53,15 @@ client.query('INSERT INTO "Users"(userid, balance) VALUES (0001, 10000)', (err, 
   }
 });
 
+
+var selectResult = "";
+
 client.query('SELECT * FROM "Users"', (err, res) => {
   if (err) {
     console.log(err.stack);
   } else {
     console.log(res.rows[0]);
+    selectResult = res.rows[0];
   }
 });
 
@@ -81,7 +85,7 @@ app.use(express.static('public'));
 
 // Loads login.hbs inside index.hbs
 app.get('/', (req, res) => {
-    res.status(200).render('login', {layout: 'index'})
+    res.status(200).render('login', {layout: 'index', leaderboardData: queryResult})
 });
 
 // Page after logging in
