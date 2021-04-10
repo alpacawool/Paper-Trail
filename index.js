@@ -85,7 +85,7 @@ app.use(express.static('public'));
 
 // Loads login.hbs inside index.hbs
 app.get('/', (req, res) => {
-    res.status(200).render('login', {layout: 'index', leaderboardData: queryResult})
+    res.status(200).render('login', {layout: 'index', leaderboardData: selectResult})
 });
 
 // Page after logging in
