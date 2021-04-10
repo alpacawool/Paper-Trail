@@ -33,6 +33,8 @@ async function testCon(){
 
 testCon();
 
+var DataTypes = require('sequelize/lib/data-types');
+
 //Schema Definition
 const User = sequelize.define('User', {
   // Model attributes are defined here
