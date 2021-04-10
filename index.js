@@ -12,73 +12,30 @@
 
 const express = require('express');
 const finnhub = require('finnhub');
-const { Sequelize } = require('sequelize');
 const port = process.env.PORT || 5000;
 
-//Postgress connection
-const sequelize = new Sequelize('postgres://fqlvkimjhnizkt:6cf9bfb4cf165201f6a3fea5e2d2529a3454af2a51dca35d97914efbc05fff5f@ec2-34-198-31-223.compute-1.amazonaws.com:5432/da9r9idh01ouos')
-//const sequelize = new Sequelize('da9r9idh01ouos', 'fqlvkimjhnizkt', '6cf9bfb4cf165201f6a3fea5e2d2529a3454af2a51dca35d97914efbc05fff5f', {
-//  host: 'ec2-34-198-31-223.compute-1.amazonaws.com',
-//  dialect: 'postgres'
-//});
 
-async function testCon(){
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-}
+//Postgres connestion
+const { Client } = require('pg');
 
-testCon();
-
-var DataTypes = require('sequelize/lib/data-types');
-
-//Schema Definition
-const User = sequelize.define('User', {
-  // Model attributes are defined here
-  userName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  holdings: {
-    type: DataTypes.STRING,
-  },
-  balance: {
-    type: DataTypes.INTEGER,
-    defaultValue: 10000,
-    allowNull: false
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
   }
-}, {
-  // Other model options go here
 });
 
-// `sequelize.define` also returns the model
-console.log(User === sequelize.models.User); // true
+client.connect();
 
-async function createIfNotExists(){
-   try{
-      await User.sync();  
-   } catch (error) {
-      console.error('Error creating database:', error);
-   }
-}
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
 
-async function syncDatabase(){
-   try{
-      await User.sync({ alter: true});  
-   } catch (error) {
-      console.error('Error syncing database:', error);
-   }
-}
 
-createIfNotExists();
-syncDatabase();
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
