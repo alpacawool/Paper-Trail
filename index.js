@@ -66,10 +66,6 @@ client.query('SELECT * FROM "Users"', (err, res) => {
   }
 });
 
-console.log("PRINTING SELECT RESULT " + selectResult);
-console.log("PRINTING SELECT RESULT " + selectResult);
-console.log("PRINTING SELECT RESULT " + selectResult);
-
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = "c1nkgs237fku88ebnubg";
@@ -89,7 +85,7 @@ app.use(express.static('public'));
 
 // Loads login.hbs inside index.hbs
 app.get('/', (req, res) => {
-    res.status(200).render('login', {layout: 'index', passedData: selectResult})
+    res.status(200).render('login', {layout: 'index'})
 });
 
 // Page after logging in
