@@ -65,9 +65,9 @@ client.query('SELECT * FROM "Users"', (err, res) => {
   }
 });
 
-console.log(selectResult);
-console.log(selectResult);
-console.log(selectResult);
+console.log("PRINTING SELECT RESULT " + selectResult);
+console.log("PRINTING SELECT RESULT " + selectResult);
+console.log("PRINTING SELECT RESULT " + selectResult);
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
