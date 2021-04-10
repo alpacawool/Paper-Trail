@@ -54,7 +54,7 @@ client.query('INSERT INTO "Users"(userid, balance) VALUES (0001, 10000)', (err, 
 });
 
 
-var selectResult;
+var selectResult = "TESTING";
 
 client.query('SELECT * FROM "Users"', (err, res) => {
   if (err) {
