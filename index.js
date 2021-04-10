@@ -29,13 +29,13 @@ client.connect();
 
 
 //Test Connection
-client.query('DROP TABLE IF EXISTS "Users"', (err, res) => {
-  if (err) {
-    console.log(err.stack);
-  } else {
-    console.log(res.rows[0]);
-  }
-});
+//client.query('DROP TABLE IF EXISTS "Users"', (err, res) => {
+//  if (err) {
+//    console.log(err.stack);
+//  } else {
+//    console.log(res.rows[0]);
+//  }
+//});
 
 client.query('CREATE TABLE IF NOT EXISTS "Users" ("userid" INTEGER, "balance" INTEGER)', (err, res) => {
   if (err) {
@@ -54,7 +54,7 @@ client.query('INSERT INTO "Users"(userid, balance) VALUES (0001, 10000)', (err, 
 });
 
 
-var selectResult = "";
+var selectResult;
 
 client.query('SELECT * FROM "Users"', (err, res) => {
   if (err) {
@@ -62,6 +62,7 @@ client.query('SELECT * FROM "Users"', (err, res) => {
   } else {
     console.log(res.rows[0]);
     selectResult = res.rows[0];
+     console.log("PRINTING SELECT RESULT INSIDE FUNC " + selectResult);
   }
 });
 
