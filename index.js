@@ -33,6 +33,51 @@ async function testCon(){
 
 testCon();
 
+//Schema Definition
+const User = sequelize.define('User', {
+  // Model attributes are defined here
+  userName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  holdings: {
+    type: DataTypes.STRING,
+  },
+  balance: {
+    type: DataTypes.INTEGER,
+    defaultValue: 10000,
+    allowNull: false
+  }
+}, {
+  // Other model options go here
+});
+
+// `sequelize.define` also returns the model
+console.log(User === sequelize.models.User); // true
+
+async function createIfNotExists(){
+   try{
+      await User.sync();  
+   } catch (error) {
+      console.error('Error creating database:', error);
+   }
+}
+
+async function syncDatabase(){
+   try{
+      await User.sync({ alter: true});  
+   } catch (error) {
+      console.error('Error syncing database:', error);
+   }
+}
+
+createIfNotExists();
+syncDatabase();
+
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = "c1nkgs237fku88ebnubg";
