@@ -50,7 +50,7 @@ function createTable(){
 }
 
 function insertRow(username, password, holdings, balance){
-    
+
     var queryString = 'INSERT INTO "Users" VALUES (\'' + username + '\',\'' + password + '\',\'' + holdings + '\',\'' + balance + '\')';
 
     console.log(queryString);
@@ -63,6 +63,34 @@ function insertRow(username, password, holdings, balance){
         }
     });
 }
+
+async function updateRow(uname, balanceModifier){
+
+    console.log("Subtracting balance");
+
+    var quer = `UPDATE "Users" SET "balance" = 5 WHERE "username" = ${uname}`;
+
+    console.log(quer);
+
+    try {
+        const res = await client.query(quer);
+        console.log(res.rows);
+        return res.rows;
+    } catch (err) {
+        return err.stack;
+    }
+
+
+}
+
+async function waitDisplay(){
+
+    var display = await(updateRow("kelton", -500));
+
+}
+
+waitDisplay();
+
 
 
 function displayAll(){
@@ -89,14 +117,14 @@ async function selectFrom(data, table, condition) {
 
     console.log(`SELECT ${data} FROM ${table} ${condition}`);
 
-  try {
-    const res = await client.query(
-      `SELECT ${data} FROM ${table} ${condition}`
-    );
-    return res.rows;
-  } catch (err) {
-    return err.stack;
-  }
+    try {
+        const res = await client.query(
+            `SELECT ${data} FROM ${table} ${condition}`
+        );
+        return res.rows;
+    } catch (err) {
+        return err.stack;
+    }
 }
 
 
@@ -115,7 +143,7 @@ async function isCorrectPassword (uname, triedPwd){
 }
 
 
-displayAll();
+//displayAll();
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
@@ -158,9 +186,18 @@ app.post('/authenticate', async (req, res) => {
 
 });
 
+app.post('/buy', (req, res) => {
+    console.log(req.body.quantity);
+
+    updateRow("orthke", req.body.quantity)
+
+    displayAll();
+});
+
+
 // Page after logging in
 app.get('/home:username', (req, res) => {
-    res.status(200).render('home');
+    res.status(200).render('home', req.body.username);
 });
 
 app.post('/insertRecord', (req, res) => {
@@ -174,11 +211,16 @@ app.post('/insertRecord', (req, res) => {
 
 app.get('/leaderboard', (req, res) => {
 
-    client.query('SELECT * FROM "Users"', (err, response) => {
+    client.query('SELECT "username", "balance" FROM "Users"', (err, response) => {
         if (err) {
             console.log(err.stack);
         } else {
-            res.send(response.rows);
+            var htmlString = 'THIS IS HTML';
+            for (var i = 0; i < response.length; i++){
+                htmlString += "<p>" + response.rows[i] + "</p> <hr>";
+            }
+            console.log(htmlString);
+            res.send(response.rows[0]);
         }
     });
 });
@@ -192,8 +234,8 @@ app.get('/signup', (req, res) => {
 // Endpoints for serving Finnhub data to client
 app.get('/finnhub/candlestick', (req, res) => {
     finnhubClient.stockCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, {}, (error, data, response) => {
-            res.send(data)
-      })
+        res.send(data)
+    })
 });
 
 app.get('/finnhub/crypto', (req, res) => {
