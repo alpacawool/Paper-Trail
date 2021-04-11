@@ -69,7 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const symbolSelectForm = document.getElementById('symbol-select');
     const symbolSelect1 = document.getElementById('symbol-select1');
     const symbolSelect2 = document.getElementById('symbol-select2');
-
+    const symbolSelect3 = document.getElementById('symbol-select3');
+    const symbolSelect4 = document.getElementById('symbol-select4');
+    const symbolSelect5 = document.getElementById('symbol-select5');
+    const symbolSelect6 = document.getElementById('symbol-select6');
+    const symbolSelect7 = document.getElementById('symbol-select7');
+    const symbolSelect8 = document.getElementById('symbol-select8');
+    const symbolSelect9 = document.getElementById('symbol-select9');
 
     const current = document.getElementById('price-current');
     const updated = document.getElementById('last-updated');
@@ -117,6 +123,55 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     symbolSelect2.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect3.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect4.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect5.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect6.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect7.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect8.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect9.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);

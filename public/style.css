@@ -1,7 +1,7 @@
 
 #graphContainer {
-    border: 3px;
-    border-color: blue;
+    border: 1px;
+    border-color: black;
     border-style: solid;
     border-radius: 10px;
     min-height: 500px;
@@ -9,8 +9,8 @@
 }
 
 #leaderboardContainer {
-    border: 3px;
-    border-color: blue;
+    border: 1px;
+    border-color: black;
     border-style: solid;
     border-radius: 10px;
     min-height: 500px;

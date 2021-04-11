@@ -37,4 +37,4 @@
     display: none;
 }
 
-form {margin:0;display:inline;height:40px; float:left; }
+.d-flex {margin:0;display:inline;height:40px; float:left; margin-bottom: 10px}
