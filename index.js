@@ -143,7 +143,8 @@ async function isCorrectPassword (uname, triedPwd){
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-api_key.apiKey = "c1nkgs237fku88ebnubg";
+// api_key.apiKey = "c1nkgs237fku88ebnubg";
+api_key.apiKey = "c1p7deaad3ic1jon95lg";
 const finnhubClient = new finnhub.DefaultApi();
 
 // Initialize express and set view engine to handlebars(.hbs)
