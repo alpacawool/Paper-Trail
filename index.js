@@ -198,13 +198,21 @@ app.get('/finnhub/candlestick', (req, res) => {
 
 app.get('/finnhub/crypto', (req, res) => {
     finnhubClient.cryptoCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, (error, data, response) => {
-        res.send(data)
+        if (error) {
+            console.error(error);
+        } else {
+            res.send(data)
+        }
     })
 });
 
 app.get('/finnhub/quote', (req, res) => {
     finnhubClient.quote(req.query.symbol, (error, data, response) => {
-        res.send(data)
+        if (error) {
+            console.error(error);
+        } else {
+            res.send(data)
+        }
     })
 });
 
