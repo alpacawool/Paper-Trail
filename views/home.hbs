@@ -26,10 +26,7 @@
             {{> chart}}
 
         </div>
-      <div id="stocksContainer" class="col-8">
 
-        {{> stocks}}
-      </div>
         <div class="col" id="leaderboardContainer">
             {{> leaderboard}}
             <div id="balances">
@@ -40,6 +37,13 @@
             <button type="button" class="btn btn-danger btn-lg" id="sellButton" data-toggle="modal" data-target="#sellDialog">Sell</button>
         </div>
     </div>
+  <div class="row">
+    <div id="stocksContainer" class="col-8">
+
+      {{> stocks}}
+
+    </div>
+  </div>
 </div>
 
 
