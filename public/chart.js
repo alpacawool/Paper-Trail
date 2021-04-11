@@ -35,12 +35,12 @@ function setQuote(price, lastUpdatedTime) {
 
 function initializeQuotes() {
     companies.forEach(company => {
-        latestQuotes[company] = setQuote(getRandomArbitrary(MIN_RANDOM_PRICE, MAX_RANDOM_PRICE),
+        latestQuotes[company] = setQuote(getRandomFloat(MIN_RANDOM_PRICE, MAX_RANDOM_PRICE),
             UTCtoEDT(getUTCTimestampSeconds()));
     })
 }
 
-function getRandomArbitrary(min, max) {
+function getRandomFloat(min, max) {
     return Math.random() * (max - min) + min;
 }
 
