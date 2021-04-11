@@ -23,10 +23,10 @@
     <div class="row">
         <div class="col-8" id="graphContainer">
             {{> chart}}
-
         </div>
         <div class="col" id="leaderboardContainer">
             {{> leaderboard}}
+            <button type=button class="btn btn-success btn" onclick="window.location.href='/leaderboard'">View actual leaderboard</button>
             <button type="button" class="btn btn-success btn-lg" id="buyButton" data-toggle="modal" data-target="#buyDialog">Buy</button>
             <button type="button" class="btn btn-danger btn-lg" id="sellButton" data-toggle="modal" data-target="#sellDialog">Sell</button>
         </div>
