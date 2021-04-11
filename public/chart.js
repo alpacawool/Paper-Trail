@@ -26,12 +26,17 @@ const companies = [
 let lastTimestamp;
 let latestQuotes = {};
 
+function setQuote(price, lastUpdatedTime) {
+    return {
+        price: price,
+        lastUpdated: lastUpdatedTime
+    }
+}
+
 function initializeQuotes() {
     companies.forEach(company => {
-        latestQuotes[company] = {
-            price: getRandomArbitrary(MIN_RANDOM_PRICE, MAX_RANDOM_PRICE),
-            lastUpdated: UTCtoEDT(getUTCTimestampSeconds())
-        }
+        latestQuotes[company] = setQuote(getRandomArbitrary(MIN_RANDOM_PRICE, MAX_RANDOM_PRICE),
+            UTCtoEDT(getUTCTimestampSeconds()));
     })
 }
 
@@ -60,10 +65,7 @@ function getNextPriceQuote() {
         getFinnQuote(symbol)
             .then(data => {
                 console.log("Status code for " + symbol + " request: " + data.status);
-                latestQuotes[symbol] = {
-                    price: data.body.c,
-                    lastUpdated: UTCtoEDT(getUTCTimestampSeconds())
-                };
+                latestQuotes[symbol] = setQuote(data.body.c, UTCtoEDT(getUTCTimestampSeconds()));
                 resolve('resolved');
             })
             .catch(error => console.error(error))
@@ -127,10 +129,7 @@ function loadChartData(symbol, chart, series, symbolName, current) {
                 chart.timeScale().fitContent();
                 lastTimestamp = to;
 
-                latestQuotes[symbol] = {
-                    price: priceData[priceData.length - 1].value,
-                    lastUpdated: to
-                };
+                latestQuotes[symbol] = setQuote(priceData[priceData.length - 1].value, to);
 
                 updateCurrentQuoteHeading(current, priceData[priceData.length - 1].value);
                 resolve('resolved');
