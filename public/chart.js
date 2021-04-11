@@ -41,7 +41,7 @@ const companies = [
 // ];
 
 let currentSymbol = companies[0];
-let currentCompanyName = "Appie (AAPI)";
+let currentCompanyName = "Appio (AAPI)";
 let lastTimestamp;
 let latestQuotes = {};
 

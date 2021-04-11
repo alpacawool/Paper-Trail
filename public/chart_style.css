@@ -22,6 +22,7 @@
 #symbol-select-container {
     padding-left: 15px;
     margin-top: 20px;
+    /*background-color: white;*/
 }
 
 #symbol-submit {
@@ -38,3 +39,15 @@
 }
 
 .d-flex {margin:0;display:inline;height:40px; float:left; margin-bottom: 10px}
+
+img {
+    width: 110px;
+    height: 110px;
+    display: block;
+}
+
+button {
+    height: 140px;
+    background-color: white;
+    color: white;
+}
