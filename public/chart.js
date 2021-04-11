@@ -8,19 +8,36 @@ const REFRESH_INTERVAL = 2000;
 const CHART_WIDTH_PERCENTAGE = 0.9;
 const CHART_HEIGHT_PERCENTAGE  = 0.7;
 
+// const companies = [
+//     "BINANCE:DASHUSDT",
+//     "BINANCE:ZECUSDT",
+//     "BINANCE:ETHUSDT",
+//     "BINANCE:YFIIUSDT",
+//     "BINANCE:MKRUSDT",
+//     "BINANCE:BNBUPUSDT",
+//     "BINANCE:BCHUSDT",
+//     "BINANCE:BNBUSDT",
+//     "BINANCE:COMPUSDT",
+//     "BINANCE:KSMUSDT",
+//     "BINANCE:AAVEUSDT",
+//     "BINANCE:XMRUSDT",
+// ];
+
 const companies = [
-    "BINANCE:DASHUSDT",
-    "BINANCE:ZECUSDT",
-    "BINANCE:ETHUSDT",
-    "BINANCE:YFIIUSDT",
-    "BINANCE:MKRUSDT",
-    "BINANCE:BNBUPUSDT",
-    "BINANCE:BCHUSDT",
-    "BINANCE:BNBUSDT",
-    "BINANCE:COMPUSDT",
-    "BINANCE:KSMUSDT",
-    "BINANCE:AAVEUSDT",
-    "BINANCE:XMRUSDT",
+    {
+        symbol: "BINANCE:DASHUSDT",
+        name: "Appie (AAPI)"},
+    {"BINANCE:ZECUSDT"},
+    {"BINANCE:ETHUSDT"},
+    {"BINANCE:YFIIUSDT"},
+    {"BINANCE:MKRUSDT"},
+    {"BINANCE:BNBUPUSDT"},
+    {"BINANCE:BCHUSDT"},
+    {"BINANCE:BNBUSDT"},
+    {"BINANCE:COMPUSDT"},
+    {"BINANCE:KSMUSDT"},
+    {"BINANCE:AAVEUSDT"},
+    {"BINANCE:XMRUSDT"},
 ];
 
 let currentSymbol = companies[0];
