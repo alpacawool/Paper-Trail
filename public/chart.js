@@ -185,73 +185,72 @@ document.addEventListener('DOMContentLoaded', function() {
     symbolSelectForm.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
         // symbol = 'TSLA';
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect1.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect2.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect3.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect4.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect5.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect6.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect7.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect8.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     symbolSelect9.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
         console.log(event.target[0].value);
-        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current);
     });
 
     function updateChart() {
