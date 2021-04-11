@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/alpacawool/Paper-Trail#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.0",
-    "finnhub": "^1.2.1"
+    "finnhub": "^1.2.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
   }
 }

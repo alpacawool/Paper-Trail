@@ -22,12 +22,11 @@
 #symbol-select-container {
     padding-left: 15px;
     margin-top: 20px;
-    width: 500px;
 }
 
 #symbol-submit {
-    display:inline;
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 #symbol-input {
@@ -37,3 +36,5 @@
 #quote {
     display: none;
 }
+
+.d-flex {margin:0;display:inline;height:40px; float:left; margin-bottom: 10px}

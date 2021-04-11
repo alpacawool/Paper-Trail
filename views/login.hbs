@@ -1,7 +1,8 @@
 <!-- Log-in Form -->
+<!--
 <div class="mx-auto mt-4 mx-4 p-4 
     border border-secondary rounded" style="width: 300px">
-    <form>
+    <form id="loginform">
         <h2 class="text-center">Paper Trail</h2>    
             <div class="form-group">
                 <input type="text" class="form-control" 
@@ -17,6 +18,24 @@
                     Log in
                 </button>
             </div>
+            <div class="form-group">
+                <button type="submit" formaction="/signup"
+                        class="btn btn-secondary btn-block">
+                    sign up
+                </button>
+            </div>
         </div>
     </form> 
-</div>
+</div>-->
+
+
+<form id="login_form" action="/authenticate" method="POST">
+    <div class="form_wrapper">
+        <h2 class="text-center">Paper Trail</h2>
+        <input name="username" id='email_input' placeholder="username" type="text">
+        <input name="password" id='password_input' placeholder="password" type="password">
+        <input id='submit' type='submit'>
+    </div>
+</form>
+
+<button onclick="window.location.href='/signup'">Signup</button>
