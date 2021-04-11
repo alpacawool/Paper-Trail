@@ -27,44 +27,62 @@ const client = new Client({
 
 client.connect();
 
+function dropTable(){
 
-//Test Connection
-//client.query('DROP TABLE IF EXISTS "Users"', (err, res) => {
-//  if (err) {
-//    console.log(err.stack);
-//  } else {
-//    console.log(res.rows[0]);
-//  }
-//});
+    client.query('DROP TABLE IF EXISTS "Users"', (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log("Dropped Table");
+        }
+    });
+}
 
-client.query('CREATE TABLE IF NOT EXISTS "Users" ("userid" INTEGER, "balance" INTEGER)', (err, res) => {
-  if (err) {
-    console.log(err.stack);
-  } else {
-    console.log(res.rows[0]);
-  }
-});
+function createTable(){
 
-client.query('INSERT INTO "Users"(userid, balance) VALUES (0001, 10000)', (err, res) => {
-  if (err) {
-    console.log(err.stack);
-  } else {
-    console.log(res.rows[0]);
-  }
-});
+    client.query('CREATE TABLE IF NOT EXISTS "Users" ("userid" VARCHAR, "password" VARCHAR, "holdings" VARCHAR, "balance" INTEGER)', (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log("Created Table");
+        }
+    });
+}
+
+function insertRow(username, password, holdings, balance){
+    
+    var queryString = 'INSERT INTO "Users" VALUES (\'' + username + '\',\'' + password + '\',\'' + holdings + '\',\'' + balance + '\')';
+    
+    console.log(queryString);
+
+    client.query(queryString, (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log("Inserted row into table");
+        }
+    });
+}
 
 
-var selectResult = "TESTING";
+function displayAll(){
+    
+    console.log("Displaying table")
+    
+    var result = client.query('SELECT * FROM "Users"', (err, res) => {
+        if (err) {
+            console.log(err.stack);
+        } else {
+            console.log(res.rows);
+        }
+    });
+    
+    return result;
+}
 
-client.query('SELECT * FROM "Users"', (err, res) => {
-  if (err) {
-    console.log(err.stack);
-  } else {
-    console.log(res.rows[0]);
-    selectResult = res.rows[0];
-     console.log("PRINTING SELECT RESULT INSIDE FUNC " + selectResult);
-  }
-});
+dropTable();
+createTable();
+
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
