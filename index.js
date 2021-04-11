@@ -115,7 +115,7 @@ async function isCorrectPassword (uname, triedPwd){
 }
 
 
-displayAll();
+//displayAll();
 
 // Set up Finnhub connection
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
@@ -150,7 +150,7 @@ app.post('/authenticate', async (req, res) => {
 
     if (auth == true){
         console.log("Login Success");
-        res.redirect("/home:" + req.body.username);
+        res.redirect("/home/:" + req.body.username);
     } else {
         console.log("Logain Failed");
         res.send("Login fail");
@@ -159,8 +159,10 @@ app.post('/authenticate', async (req, res) => {
 });
 
 // Page after logging in
-app.get('/home:username', (req, res) => {
-    res.status(200).render('home');
+app.get('/home/:username', async (req, res) => {
+    var leaderboardData = await selectFrom('*', '\"Users\"', '');
+    console.log(leaderboardData);
+    res.status(200).render('home');//, leaderboardData);
 });
 
 app.post('/insertRecord', (req, res) => {
@@ -169,12 +171,12 @@ app.post('/insertRecord', (req, res) => {
     insertRow(req.body.username, req.body.password, null, 10000);
     displayAll();
 
-    res.redirect("/home:" + req.body.username);
+    res.redirect("/home/:" + req.body.username);
 });
 
 app.get('/leaderboard', (req, res) => {
 
-    client.query('SELECT * FROM "Users"', (err, response) => {
+    client.query('SELECT username, balance FROM "Users" ORDER BY balance DESC', (err, response) => {
         if (err) {
             console.log(err.stack);
         } else {
