@@ -19,13 +19,14 @@
 }
 
 #stocksContainer {
-    border: 3px;
-    border-color: blue;
-    border-style: solid;
-    border-radius: 10px;
+    width: 100%;
+    /*border: 3px;*/
+    /*border-color: blue;*/
+    /*border-style: solid;*/
+    /*border-radius: 10px;*/
     min-height: 150px;
-    margin-top: 15px;
-    background-color: lightcoral;
+    /*margin-top: 15px;*/
+    background-color: white;
 }
 
 #buyButton {
@@ -59,7 +60,7 @@
 
 footer {
     overflow: hidden;
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     width: 100%;
     height: 82px;
