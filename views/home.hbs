@@ -22,6 +22,7 @@
 <div class="container">
     <div class="row">
         <div class="col-8" id="graphContainer">
+
             {{> chart}}
 
         </div>
@@ -46,10 +47,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/buy" method="post">
             <div class="row">
                 <div class="col">
-                    <input type="text" class="form-control" id="buyQuantity"  placeholder="Quantity">
+                    <input type="text" name="quantity" lass="form-control" id="buyQuantity"  placeholder="Quantity">
                 </div>
                 <div class="col">
                      <select class="custom-select" required>
@@ -57,14 +58,14 @@
                         <option value="1">Stock 1</option>
                         <option value="2">Stock 2</option>
                         <option value="3">Stock 3</option>
-                      </select>   
+                      </select>
                 </div>
 
             </div>    
       </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success">Buy</button>
+            <input type="submit" class="btn btn-success" >
         </div>
        </form>
     </div>
