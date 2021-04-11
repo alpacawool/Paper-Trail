@@ -1,42 +1,45 @@
 <div id="chart-container">
   <div id="chart">
-    <div id="chart-title"></div>
+    <div id="chart-title">
+      <span id = "symbol-name"></span>
+      <span id = "price-current"></span>
+    </div>
   </div>
 
-  <div id="switcher" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="date-scale" id="day" autocomplete="off" checked>
-    <label class="btn btn-sm btn-outline-dark" for="day">Today</label>
+<!--  <div id="switcher" class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
+<!--    <input type="radio" class="btn-check" name="date-scale" id="day" autocomplete="off" checked>-->
+<!--    <label class="btn btn-sm btn-outline-dark active date-scale-btn" for="day">Day</label>-->
 
-    <input type="radio" class="btn-check" name="date-scale" id="week" autocomplete="off">
-    <label class="btn btn-sm btn-outline-dark" for="week">Week</label>
+<!--    <input type="radio" class="btn-check" name="date-scale" id="week" autocomplete="off">-->
+<!--    <label class="btn btn-sm btn-outline-dark date-scale-btn" for="week">Week</label>-->
 
-    <input type="radio" class="btn-check" name="date-scale" id="month" autocomplete="off">
-    <label class="btn btn-sm btn-outline-dark" for="month">Month</label>
+<!--    <input type="radio" class="btn-check" name="date-scale" id="month" autocomplete="off">-->
+<!--    <label class="btn btn-sm btn-outline-dark" for="month">Month</label>-->
 
-    <input type="radio" class="btn-check" name="date-scale" id="year" autocomplete="off">
-    <label class="btn btn-sm btn-outline-dark" for="year">Year</label>
-  </div>
+<!--    <input type="radio" class="btn-check" name="date-scale" id="year" autocomplete="off">-->
+<!--    <label class="btn btn-sm btn-outline-dark" for="year">Year</label>-->
+<!--  </div>-->
 
 </div>
 
 <div id="quote">
   <table class="table m-3">
-    <tr>
-      <th>Current price:</th>
-      <td id="price-current"></td>
-    </tr>
-    <tr>
-      <th>Open:</th>
-      <td id="price-open"></td>
-    </tr>
-    <tr>
-      <th>High:</th>
-      <td id="price-high"></td>
-    </tr>
-    <tr>
-      <th>Low:</th>
-      <td id="price-low"></td>
-    </tr>
+<!--    <tr>-->
+<!--      <th>Current price:</th>-->
+<!--      <td id="price-current"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <th>Open:</th>-->
+<!--      <td id="price-open"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <th>High:</th>-->
+<!--      <td id="price-high"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <th>Low:</th>-->
+<!--      <td id="price-low"></td>-->
+<!--    </tr>-->
     <tr>
       <th>Last Updated:</th>
       <td id="last-updated"></td>
@@ -46,8 +49,17 @@
 
 <div id="symbol-select-container">
   <form class="d-flex" action="" id="symbol-select">
-      <input class="form-control form-control-sm me-2" type="search" id="symbol-input" placeholder="Enter a symbol"
-             aria-label="Search">
-      <button class="btn btn-sm btn-outline-dark" type="submit" id="symbol-submit">Show price history</button>
+      <input type="hidden" name="symbol" value="BINANCE:DASHUSDT">
+      <button class="btn btn-sm btn-outline-dark" type="submit" id="symbol-submit">Appie</button>
   </form>
+    <form class="d-flex" action="" id="symbol-select1">
+        <input type="hidden" name="symbol" value="BINANCE:ZECUSDT">
+        <button class="btn btn-sm btn-outline-dark" type="submit" id="symbol-submit">Teslo</button>
+    </form>
+    <form class="d-flex" action="" id="symbol-select2">
+        <input type="hidden" name="symbol" value="BINANCE:ETHUSDT">
+        <button class="btn btn-sm btn-outline-dark" type="submit" id="symbol-submit">MicroNoft</button>
+    </form>
+
+
 </div>

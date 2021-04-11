@@ -1,0 +1,97 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>signup</title>
+</head>
+<body>
+<form id="login_form" action='login_page.php'>
+    <div class="form_wrapper">
+        <h2 class="text-center">Paper Trail</h2>
+        <input id='email_input' placeholder="email" type="text">
+        <input id='password_input' placeholder="password" type="password">
+        <input id='nickname' placeholder="nickname" type="text"> <br>
+        <input id='submit' type='submit'>
+    </div>
+</form>
+</body>
+</html>
+
+<!--<script>-->
+<!--    import apiClient from './../../js/ApiClient.js';-->
+<!--    export default {-->
+<!--        name: "SignUpForm",-->
+<!--        methods: {-->
+<!--            signup: function () {-->
+<!--                const email = document.getElementById('email_input').value;-->
+<!--                const nickname = document.getElementById('nickname').value;-->
+<!--                const password = document.getElementById('password_input').value;-->
+<!--                const passwordconf = document.getElementById('password_confirm').value;-->
+<!--                var vueObj = this;-->
+<!--                if (password !== passwordconf || !password) {-->
+<!--                    alert('Check password');-->
+<!--                } else {-->
+<!--                    apiClient.signup(email, password, nickname, function (result, data) {-->
+<!--                        if (result) {-->
+<!--                            vueObj.$store.state.storeInput = email;-->
+<!--                            vueObj.$router.push('/sign_up2');-->
+<!--                        } else {-->
+<!--                            alert(data);-->
+<!--                        }-->
+<!--                    })-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+<style scoped>
+    #login_form {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .form_wrapper {
+        width: 400px;
+        height: 470px;
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+        background-color: #ffffff;
+        text-align: center;
+        margin:0 auto;
+
+    }
+    input {
+        display: inline-block;
+        width: 364px;
+        height: 53px;
+        border-radius: 5px;
+        border: solid 1px #afafaf;
+        background-color: #ffffff;
+        font-size: 20px;
+        padding: 0 24px;
+        margin-bottom: 26px;
+    }
+    #submit {
+        display: inline-block;
+        width: 150px;
+        height: 66px;
+        margin-top: 9px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        background-color: #4695d9;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+        color: #ffffff;
+    }
+    :visited{
+        color: black;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    .router-link :visited{
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+    }
+</style>

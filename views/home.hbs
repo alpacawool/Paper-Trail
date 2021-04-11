@@ -23,59 +23,93 @@
     <div class="row">
         <div class="col-8" id="graphContainer">
             {{> chart}}
-            <button type="button" class="btn btn-success btn-lg" id="buyButton">Buy</button>
-            <button type="button" class="btn btn-danger btn-lg" id="sellButton">Sell</button>
+
         </div>
         <div class="col" id="leaderboardContainer">
-            {{> leaderboard passedData=leaderboardData}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col" id="stocksContainer">
-            <div class="row stock-row">
-                <div class="col stock-item">
-                    Cool Stock 1
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 2
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 3
-                </div>
-            </div>
-            <div class="row stock-row">
-                <div class="col stock-item">
-                    Cool Stock 4
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 5
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 6
-                </div>
-            </div>
-            <div class="row stock-row">
-                <div class="col stock-item">
-                    Cool Stock 7
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 8
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 9
-                </div>
-            </div>
-            <div class="row stock-row">
-                <div class="col stock-item">
-                    Cool Stock 10
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 11
-                </div>
-                <div class="col stock-item">
-                    Cool Stock 12
-                </div>
-            </div>
+            {{> leaderboard}}
+            <button type="button" class="btn btn-success btn-lg" id="buyButton" data-toggle="modal" data-target="#buyDialog">Buy</button>
+            <button type="button" class="btn btn-danger btn-lg" id="sellButton" data-toggle="modal" data-target="#sellDialog">Sell</button>
         </div>
     </div>
 </div>
+
+
+
+<!-- Buy Dialog -->
+<div class="modal fade" id="buyDialog" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="buyDialogTitle">Buy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" id="buyQuantity"  placeholder="Quantity">
+                </div>
+                <div class="col">
+                     <select class="custom-select" required>
+                        <option value="">Select a stock..</option>
+                        <option value="1">Stock 1</option>
+                        <option value="2">Stock 2</option>
+                        <option value="3">Stock 3</option>
+                      </select>   
+                </div>
+
+            </div>    
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success">Buy</button>
+        </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Sell Dialog -->
+<div class="modal fade" id="sellDialog" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sellDialogTitle">Buy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" id="buyQuantity"  placeholder="Quantity">
+                </div>
+                <div class="col">
+                     <select class="custom-select" required>
+                        <option value="">Select a stock..</option>
+                        <option value="1">Stock 1</option>
+                        <option value="2">Stock 2</option>
+                        <option value="3">Stock 3</option>
+                      </select>   
+                </div>
+
+            </div>    
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger">Sell</button>
+        </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+    <div class="content">
+        <span>© copyright Money Never Sleeps. All Rights Reserved.</span>
+        <router-link to="introduce"><span>HELP</span></router-link>
+    </div>
+</footer>

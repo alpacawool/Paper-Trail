@@ -1,50 +1,14 @@
-const DAY_SECS = 86400;
-const WEEK_SECS = 604800;
-const MONTH_SECS = 2592000;
-const YEAR_SECS = 31536000;
+const LAST_500_POINTS = 30000;
+const CHART_INTERVAL = "1";
 const EDT_OFFSET = 14400;
+
+const CHART_WIDTH_PERCENTAGE = 0.9;
+const CHART_HEIGHT_PERCENTAGE  = 0.7;
+
+let lastTimestamp;
 
 function getUTCTimestampSeconds() {
     return Math.floor(Date.now() / 1000);
-}
-
-function createRange(to, scale) {
-    switch(scale) {
-        case 'day': {
-            let from = to - (to % DAY_SECS);
-            return {
-                from: from,
-                to: to,
-                interval: "5"
-            };
-        }
-        case 'week': {
-            let from = to - WEEK_SECS;
-            return {
-                from: from,
-                to: to,
-                interval: "30"
-            };
-        }
-        case 'month': {
-            let from = to - MONTH_SECS;
-            return {
-                from: from,
-                to: to,
-                interval: "60"
-            };
-        }
-        case 'year': {
-            let from = to - YEAR_SECS;
-            return {
-                from: from,
-                to: to,
-                interval: "D"
-            };
-        }
-        default:
-            console.log("Error parsing range")
-    }
 }
 
 /**
@@ -59,100 +23,126 @@ function getFinnQuote(symbol) {
         .then(response => response.json())
 }
 
-function getFinnCandle(symbol, interval, from, to) {
-    return fetch('/finnhub/candlestick/?symbol=' + symbol + '&interval=' + interval + '&from=' + from + '&to=' + to)
+function getCryptoCandle(symbol, interval, from, to) {
+    return fetch('/finnhub/crypto/?symbol=' + symbol + '&interval=' + interval + '&from=' + from + '&to=' + to)
         .then(response => response.json())
 }
 
-function finnCandleToChartData(data) {
+function finnCandleToLineData(data) {
     let result = [];
     for (let i = 0; i < data.c.length; i++) {
         result.push({
-                "time": UTCtoEDT(data.t[i]),
-                "open": data.o[i],
-                "high": data.h[i],
-                "low": data.l[i],
-                "close": data.c[i]
-            });
+            "time": UTCtoEDT(data.t[i]),
+            "value": data.c[i]
+        });
     }
     return result;
 }
 
-function loadChartData(symbol, scale, chart, series, title) {
-    let now = getUTCTimestampSeconds()
-    let range = createRange(now, scale);
+function loadChartData(symbol, scale, chart, series, symbolName, current, updated) {
+    let to = getUTCTimestampSeconds();
+    let from = to - LAST_500_POINTS;
 
-    getFinnCandle(symbol, range.interval, range.from, range.to)
+    getCryptoCandle(symbol, CHART_INTERVAL, from, to)
         .then(data => {
-            title.innerText = "Price chart for " + symbol;
+            symbolName.innerText = symbol;
 
-            let priceData = finnCandleToChartData(data);
+            let priceData = finnCandleToLineData(data);
             series.setData(priceData);
-            // series.setData(data);
 
-            chart.timeScale().setVisibleRange({
-                from: range.from,
-                to: range.to
-            });
             chart.timeScale().fitContent();
+            lastTimestamp = to;
+
+            updateQuote(current, priceData[priceData.length - 1].value, updated);
         });
+}
+
+function updateQuote(current, currentPrice, updated) {
+    current.innerText = currentPrice.toFixed(2);
+    updated.innerText = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}) + " EDT";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     const chartBody = document.getElementById('chart');
-    const chartTitle = document.getElementById('chart-title');
+    const graphContainer = document.getElementById('graphContainer');
+    const symbolName = document.getElementById('symbol-name');
     const symbolSelectForm = document.getElementById('symbol-select');
+    const symbolSelect1 = document.getElementById('symbol-select1');
+    const symbolSelect2 = document.getElementById('symbol-select2');
+
 
     const current = document.getElementById('price-current');
-    const open = document.getElementById('price-open');
-    const high = document.getElementById('price-high');
-    const low = document.getElementById('price-low');
-    const lastUpdated = document.getElementById('last-updated');
+    const updated = document.getElementById('last-updated');
 
     const priceChart = LightweightCharts.createChart(chartBody, {
-        width: 480,
-        height: 300,
         timeScale: {
             timeVisible: true
-        }});
-    const barSeries = priceChart.addBarSeries();
+        },
+        grid: {
+            vertLines: {
+                visible: false
+            }
+        }
+    });
+    resizeChart();
+    const areaSeries = priceChart.addAreaSeries({lineWidth: 1});
 
-    let symbol = "AAPL";
+    function resizeChart() {
+        priceChart.applyOptions({
+            width: Math.floor(graphContainer.offsetWidth * CHART_WIDTH_PERCENTAGE),
+            height: Math.floor(graphContainer.offsetHeight * CHART_HEIGHT_PERCENTAGE)
+        });
+    }
+
+    window.onresize = resizeChart;
+
+    let symbol = "BINANCE:BTCUSDT";
     let scale = "day";
 
-    console.log(getFinnQuote(symbol));
-
-    document.querySelectorAll('input[name="date-scale"]').forEach((button) => {
-        button.addEventListener("click", function(event) {
-            // console.log(event.target.id);
-            scale = event.target.id;
-            loadChartData(symbol, scale, priceChart, barSeries, chartTitle);
-        })
-    });
-
-    loadChartData(symbol, scale, priceChart, barSeries, chartTitle);
+    loadChartData(symbol, scale, priceChart, areaSeries, symbolName, current, updated);
 
     symbolSelectForm.addEventListener('submit', (event) => {
         event.preventDefault();
         symbol = event.target[0].value;
-        updateQuote();
-        loadChartData(symbol, scale, priceChart, barSeries, chartTitle);
+        // symbol = 'TSLA';
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
     });
 
-    function updateQuote() {
+    symbolSelect1.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    symbolSelect2.addEventListener('submit', (event) => {
+        event.preventDefault();
+        symbol = event.target[0].value;
+        console.log(event.target[0].value);
+        loadChartData(symbol, 'day', priceChart, areaSeries, symbolName, current, updated);
+    });
+
+    function updateChart() {
         getFinnQuote(symbol)
             .then(data => {
-                console.log(data);
-                current.innerText = data.c;
-                open.innerText = data.o;
-                high.innerText = data.h;
-                low.innerText = data.l;
-                let now = new Date();
-                lastUpdated.innerText = now.toLocaleString('en-US', {timeZone: 'America/New_York'}) + " EDT";
+                let currentTimestamp = UTCtoEDT(getUTCTimestampSeconds());
+                if (currentTimestamp < lastTimestamp + 60) {
+                    areaSeries.update({
+                        time: lastTimestamp,
+                        value: data.c
+                    });
+                } else {
+                    areaSeries.update({
+                        time: currentTimestamp,
+                        value: data.c
+                    });
+                    lastTimestamp = currentTimestamp;
+    }
+
+                updateQuote(current, data.c, updated);
             })
     }
 
-    updateQuote();
-    const refreshQuotes = setInterval(updateQuote, 60000);
-
+    const refreshChart = setInterval(updateChart, 1000);
 });

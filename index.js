@@ -115,9 +115,23 @@ app.get('/chart', (req, res) => {
     res.status(200).render('chart');
 });
 
+
+// signup
+app.get('/signup', (req, res) => {
+    res.status(200).render('signup');
+});
+
+
+
 // Endpoints for serving Finnhub data to client
 app.get('/finnhub/candlestick', (req, res) => {
     finnhubClient.stockCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, {}, (error, data, response) => {
+        res.send(data)
+    })
+});
+
+app.get('/finnhub/crypto', (req, res) => {
+    finnhubClient.cryptoCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, (error, data, response) => {
         res.send(data)
     })
 });

@@ -55,3 +55,29 @@
     border-radius: 5px;
     background-color: aliceblue;
 }
+
+
+footer {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 82px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: #ffffff;
+}
+footer .content {
+    padding: 32px 50px;
+    display: flex;
+    justify-content: space-between;
+}
+footer span {
+    font-family: NanumGothic;
+    font-size: 15px;
+    text-align: left;
+    color: #696969;
+}
+footer a {
+    font-weight: bold;
+    text-decoration: underline;
+}
