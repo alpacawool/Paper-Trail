@@ -23,6 +23,25 @@ const companies = [
     "BINANCE:XMRUSDT",
 ];
 
+// const companies = [
+//     {
+//         symbol: "BINANCE:DASHUSDT",
+//         name: "Appie (AAPI)"},
+//     {"BINANCE:ZECUSDT"},
+//     {"BINANCE:ETHUSDT"},
+//     {"BINANCE:YFIIUSDT"},
+//     {"BINANCE:MKRUSDT"},
+//     {"BINANCE:BNBUPUSDT"},
+//     {"BINANCE:BCHUSDT"},
+//     {"BINANCE:BNBUSDT"},
+//     {"BINANCE:COMPUSDT"},
+//     {"BINANCE:KSMUSDT"},
+//     {"BINANCE:AAVEUSDT"},
+//     {"BINANCE:XMRUSDT"},
+// ];
+
+let currentSymbol = companies[0];
+let currentCompanyName = "Appie (AAPI)";
 let lastTimestamp;
 let latestQuotes = {};
 
@@ -114,12 +133,12 @@ function finnCandleToLineData(data) {
     return result;
 }
 
-function loadChartData(symbol, chart, series, symbolName, current) {
+function loadChartData(chart, series, symbolName, current) {
     let to = getUTCTimestampSeconds();
     let from = to - LAST_500_POINTS;
-    getCryptoCandle(symbol, CHART_INTERVAL, from, to)
+    getCryptoCandle(currentSymbol, CHART_INTERVAL, from, to)
         .then(data => {
-            symbolName.innerText = symbol;
+            symbolName.innerText = currentCompanyName;
 
             let priceData = finnCandleToLineData(data.body);
             series.setData(priceData);
@@ -127,7 +146,7 @@ function loadChartData(symbol, chart, series, symbolName, current) {
             chart.timeScale().fitContent();
             lastTimestamp = to;
 
-            latestQuotes[symbol] = setQuote(priceData[priceData.length - 1].value, to);
+            latestQuotes[currentSymbol] = setQuote(priceData[priceData.length - 1].value, to);
 
             updateCurrentQuoteHeading(current, priceData[priceData.length - 1].value);
         })
@@ -143,16 +162,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartBody = document.getElementById('chart');
     const graphContainer = document.getElementById('graphContainer');
     const symbolName = document.getElementById('symbol-name');
-    const symbolSelectForm = document.getElementById('symbol-select');
-    const symbolSelect1 = document.getElementById('symbol-select1');
-    const symbolSelect2 = document.getElementById('symbol-select2');
-    const symbolSelect3 = document.getElementById('symbol-select3');
-    const symbolSelect4 = document.getElementById('symbol-select4');
-    const symbolSelect5 = document.getElementById('symbol-select5');
-    const symbolSelect6 = document.getElementById('symbol-select6');
-    const symbolSelect7 = document.getElementById('symbol-select7');
-    const symbolSelect8 = document.getElementById('symbol-select8');
-    const symbolSelect9 = document.getElementById('symbol-select9');
+    // const symbolSelectForm = document.getElementById('symbol-select');
+    // const symbolSelect1 = document.getElementById('symbol-select1');
+    // const symbolSelect2 = document.getElementById('symbol-select2');
+    // const symbolSelect3 = document.getElementById('symbol-select3');
+    // const symbolSelect4 = document.getElementById('symbol-select4');
+    // const symbolSelect5 = document.getElementById('symbol-select5');
+    // const symbolSelect6 = document.getElementById('symbol-select6');
+    // const symbolSelect7 = document.getElementById('symbol-select7');
+    // const symbolSelect8 = document.getElementById('symbol-select8');
+    // const symbolSelect9 = document.getElementById('symbol-select9');
+    const symbolSelectors = document.querySelectorAll('.symbol-select')
 
     const current = document.getElementById('price-current');
 
@@ -175,89 +195,95 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    let symbol = companies[0];
-
-    loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-
+    loadChartData(priceChart, areaSeries, symbolName, current);
 
     window.onresize = resizeChart;
 
-    symbolSelectForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        // symbol = 'TSLA';
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    symbolSelectors.forEach(item => {
+        item.addEventListener('submit', (event) => {
+            event.preventDefault();
+            currentSymbol = event.target[0].value;
+            currentCompanyName = event.target[0].name;
+            loadChartData(priceChart, areaSeries, symbolName, current)
+        })
     });
 
-    symbolSelect1.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect2.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect3.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect4.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect5.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect6.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect7.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect8.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
-
-    symbolSelect9.addEventListener('submit', (event) => {
-        event.preventDefault();
-        symbol = event.target[0].value;
-        console.log(event.target[0].value);
-        loadChartData(symbol, priceChart, areaSeries, symbolName, current);
-    });
+    // symbolSelectForm.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     // symbol = 'TSLA';
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect1.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect2.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect3.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect4.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect5.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect6.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect7.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect8.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
+    //
+    // symbolSelect9.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     symbol = event.target[0].value;
+    //     console.log(event.target[0].value);
+    //     loadChartData(symbol, priceChart, areaSeries, symbolName, current);
+    // });
 
     function updateChart() {
         let pricePromise = getNextPriceQuote()
             .then((latestQuote) => {
                 try {
-                    latestQuote = latestQuotes[symbol];
+                    latestQuote = latestQuotes[currentSymbol];
                 } catch (error) {
                     console.error(error);
                 }
