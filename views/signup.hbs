@@ -1,16 +1,14 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>signup</title>
 </head>
 <body>
-<form id="login_form" action='login_page.php'>
+<form id="login_form" action="/insertRecord" method="POST">
     <div class="form_wrapper">
         <h2 class="text-center">Paper Trail</h2>
-        <input id='email_input' placeholder="email" type="text">
-        <input id='password_input' placeholder="password" type="password">
-        <input id='nickname' placeholder="nickname" type="text"> <br>
+        <input name="username" id='email_input' placeholder="username" type="text">
+        <input name="password" id='password_input' placeholder="password" type="password">
         <input id='submit' type='submit'>
     </div>
 </form>
