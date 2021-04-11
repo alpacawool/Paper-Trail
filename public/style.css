@@ -19,12 +19,13 @@
 }
 
 #stocksContainer {
+    width: 100%;
     /*border: 3px;*/
     /*border-color: blue;*/
     /*border-style: solid;*/
     /*border-radius: 10px;*/
     min-height: 150px;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     background-color: white;
 }
 
