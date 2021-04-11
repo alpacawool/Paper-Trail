@@ -64,7 +64,7 @@ function getNextPriceQuote() {
         let symbol = symbolGenerator.next().value;
         getFinnQuote(symbol)
             .then(data => {
-                console.log("Status code for " + symbol + " request: " + data.status);
+//                 console.log("Status code for " + symbol + " request: " + data.status);
                 latestQuotes[symbol] = setQuote(data.body.c, UTCtoEDT(getUTCTimestampSeconds()));
                 resolve('resolved');
             })
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         Promise.all([pricePromise, timeOutPromise])
             .then(function (value) {
-                console.log("At least 1 second + completed GET request");
+//                 console.log("At least 1 second + completed GET request");
                 updateChart();
             });
     }
