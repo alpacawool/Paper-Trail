@@ -89,9 +89,6 @@ async function waitDisplay(){
 
 }
 
-waitDisplay();
-
-
 
 function displayAll(){
 
@@ -233,29 +230,29 @@ app.get('/signup', (req, res) => {
 
 // Endpoints for serving Finnhub data to client
 app.get('/finnhub/candlestick', (req, res) => {
-    finnhubClient.stockCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, {}, (error, data, response) => {
-        res.send(data)
-    })
+//    finnhubClient.stockCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, {}, (error, data, response) => {
+//        res.send(data)
+//    })
 });
 
 app.get('/finnhub/crypto', (req, res) => {
-    finnhubClient.cryptoCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, (error, data, response) => {
-        if (error) {
-            console.error(error);
-        } else {
-            res.send(data)
-        }
-    })
+//    finnhubClient.cryptoCandles(req.query.symbol, req.query.interval, req.query.from, req.query.to, (error, data, response) => {
+//        if (error) {
+//            console.error(error);
+//        } else {
+//            res.send(data)
+//        }
+//    })
 });
 
 app.get('/finnhub/quote', (req, res) => {
-    finnhubClient.quote(req.query.symbol, (error, data, response) => {
-        if (error) {
-            console.error(error);
-        } else {
-            res.send(data)
-        }
-    })
+//    finnhubClient.quote(req.query.symbol, (error, data, response) => {
+//        if (error) {
+//            console.error(error);
+//        } else {
+//            res.send(data)
+//        }
+//    })
 });
 
 app.listen(port, () => 
