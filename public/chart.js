@@ -3,7 +3,7 @@ const CHART_INTERVAL = "1";
 const EDT_OFFSET = 14400;
 const MIN_RANDOM_PRICE = 200;
 const MAX_RANDOM_PRICE = 500;
-const REFRESH_INTERVAL = 1000;
+const REFRESH_INTERVAL = 1200;
 
 const CHART_WIDTH_PERCENTAGE = 0.9;
 const CHART_HEIGHT_PERCENTAGE  = 0.7;
@@ -117,25 +117,21 @@ function finnCandleToLineData(data) {
 function loadChartData(symbol, chart, series, symbolName, current) {
     let to = getUTCTimestampSeconds();
     let from = to - LAST_500_POINTS;
+    getCryptoCandle(symbol, CHART_INTERVAL, from, to)
+        .then(data => {
+            symbolName.innerText = symbol;
 
-    return new Promise((resolve) => {
-        getCryptoCandle(symbol, CHART_INTERVAL, from, to)
-            .then(data => {
-                symbolName.innerText = symbol;
+            let priceData = finnCandleToLineData(data.body);
+            series.setData(priceData);
 
-                let priceData = finnCandleToLineData(data.body);
-                series.setData(priceData);
+            chart.timeScale().fitContent();
+            lastTimestamp = to;
 
-                chart.timeScale().fitContent();
-                lastTimestamp = to;
+            latestQuotes[symbol] = setQuote(priceData[priceData.length - 1].value, to);
 
-                latestQuotes[symbol] = setQuote(priceData[priceData.length - 1].value, to);
-
-                updateCurrentQuoteHeading(current, priceData[priceData.length - 1].value);
-                resolve('resolved');
-            })
-            .catch(error => console.error(error));
-    });
+            updateCurrentQuoteHeading(current, priceData[priceData.length - 1].value);
+        })
+        .catch(error => console.error(error));
 }
 
 function updateCurrentQuoteHeading(current, price) {
@@ -183,29 +179,39 @@ document.addEventListener('DOMContentLoaded', function() {
         loadChartData(symbol, priceChart, areaSeries, symbolName, current);
     });
 
-    async function updateChart() {
-        await getNextPriceQuote();
-        let latestQuote;
-        try {
-            latestQuote = latestQuotes[symbol];
-        } catch (error) {
-            console.error(error);
-        }
+    function updateChart() {
+        let pricePromise = getNextPriceQuote()
+            .then((latestQuote) => {
+                try {
+                    latestQuote = latestQuotes[symbol];
+                } catch (error) {
+                    console.error(error);
+                }
 
-        if (latestQuote.lastUpdated < lastTimestamp + 60) {
-            areaSeries.update({
-                time: lastTimestamp,
-                value: latestQuote.price
-            })
-        } else {
-            areaSeries.update({
-                time: latestQuote.lastUpdated,
-                value: latestQuote.price
-            })
-        }
+                if (latestQuote.lastUpdated < lastTimestamp + 60) {
+                    areaSeries.update({
+                        time: lastTimestamp,
+                        value: latestQuote.price
+                    })
+                } else {
+                    areaSeries.update({
+                        time: latestQuote.lastUpdated,
+                        value: latestQuote.price
+                    })
+                }
 
-        updateCurrentQuoteHeading(current, latestQuote.price);
+                updateCurrentQuoteHeading(current, latestQuote.price);
+            })
+            .catch(error => console.error(error));
+        let timeOutPromise = new Promise(function (resolve, reject) {
+            setTimeout(resolve, REFRESH_INTERVAL, 'Timeout Done')
+        });
+
+        Promise.all([pricePromise, timeOutPromise])
+            .then(function (value) {
+                console.log("At least 1 second + completed GET request");
+                updateChart();
+            });
     }
-
-    const refreshChart = setInterval(updateChart, REFRESH_INTERVAL);
+    updateChart();
 });
